@@ -1,26 +1,96 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookStore</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Ecommerce Website</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>BookStore</h1>
-    <ul>
-        {% for book in books %}
-            <li>{{ book.title }} - {{ book.author }}</li>
-            <p>
-                id: {{ book.id }}<br>
-                title: {{ book.title }}<br>
-                author: {{ book.author }}<br>
-                original_language: {{ book.original_language }}<br>
-                first_published: {{ book.first_published }}<br>
-                sales_in_millions: {{ book.sales_in_millions }}<br>
-                genre: {{ book.genre }}<br>
-            </p>
-        {% endfor %}
-    </ul>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="header">
+                <h1>Welcome to Book<span class="highlight">Store</span></h1>
+            </div>
+            <div class="sub-header">    
+                <h2>Best place to buy books</h2>
+            </div>
+        </section>
+        <section class="filters">
+            <form action="" method="GET">
+                <div class="filter-item container">
+                    <div class="search">
+                        <input type="text" name="search" placeholder="Search...">
+                    </div>
+                    <div class="filter-item sort">
+                        <select name="sort">
+                            <option value="" selected disabled>Sort by</option>
+                            <option value="title">Title</option>
+                            <option value="author">Author</option>
+                            <option value="price">Price</option>
+                        </select>
+                    </div>
+                    <div class="filter-item order">
+                        <select name="order">
+                            <option value="" selected disabled>Order by</option>
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
+                    <div class="filter-item submit">
+                        <input type="submit" value="Search">
+                    </div>
+                </div>
+        </section>
+        <section class="products">
+            {% for book in books %}
+            <div class="product-item">
+                <div class="container">
+                    <div class="image">
+                        <h1 class="image-title">
+                            {{ book.title }}
+                        </h1>
+                        <h2 class="image-author">
+                            {{ book.author }}
+                        </h2>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="title">
+                        <h1>
+                            {{ book.title }}
+                        </h1>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="price">
+                        <h1>
+                            5.99$
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p class="credits">
+            Created by <a href="http://github.com/kapiw04" class="highlight">Kacper Wojtowicz</a>
+            <a href="https://www.kaggle.com/datasets/drahulsingh/best-selling-books" class="dataset">Dataset used</a>
+        </p>
+    </footer>
+</body>
+</html>
 </body>
 </html>
