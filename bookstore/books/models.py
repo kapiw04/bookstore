@@ -23,7 +23,7 @@ class Book(models.Model):
     first_published = models.PositiveIntegerField(null=True, default=1900)
     sales_in_millions = models.PositiveIntegerField(null=True)
     genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
-
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, default=5.99)
     def __str__(self):
         return self.title
     

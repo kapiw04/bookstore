@@ -29,4 +29,4 @@ def import_books_from_csv(filename):
             book.save()
 
 if __name__ == '__main__':
-    import_books_from_csv(r'C:\Users\wojto\OneDrive\Pulpit\PROGRAMOWANIE\PORTFOLIO\BOOKSTORE\best-selling-books.csv')
+    import_books_from_csv(r'.\best-selling-books.csv')
