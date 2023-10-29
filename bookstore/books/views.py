@@ -27,20 +27,31 @@ def index(request):
     order = request.GET.get('order', 'asc')
 
     if search:
-        if order == 'asc':
+        if sortby == 'title':
+            order_prefix = '' if order == 'asc' else '-'
             books = Book.objects.filter(
-                title__icontains=search).order_by(sortby)
+                title__icontains=search).order_by(f'{order_prefix}title')
+        elif sortby == 'author':
+            order_prefix = '' if order == 'asc' else '-'
+            books = Book.objects.filter(title__icontains=search).order_by(
+                f'{order_prefix}author__name')
         else:
+            order_prefix = '' if order == 'asc' else '-'
             books = Book.objects.filter(
-                title__icontains=search).order_by(f'-{sortby}')
+                title__icontains=search).order_by(f'{order_prefix}price')
     else:
-        if order == 'asc':
-            books = Book.objects.all().order_by(sortby)
+        if sortby == 'title':
+            order_prefix = '' if order == 'asc' else '-'
+            books = Book.objects.all().order_by(f'{order_prefix}title')
+        elif sortby == 'author':
+            order_prefix = '' if order == 'asc' else '-'
+            books = Book.objects.all().order_by(f'{order_prefix}author__name')
         else:
-            books = Book.objects.all().order_by(f'-{sortby}')
+            order_prefix = '' if order == 'asc' else '-'
+            books = Book.objects.all().order_by(f'{order_prefix}price')
 
-    form = SearchForm(request.GET)
-    return render(request, 'index.html', {'books': books, 'form': form})
+        form = SearchForm(request.GET)
+        return render(request, 'index.html', {'books': books, 'form': form})
 
 
 def details(request, book_id):
