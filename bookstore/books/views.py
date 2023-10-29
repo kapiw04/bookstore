@@ -35,10 +35,18 @@ def index(request):
             order_prefix = '' if order == 'asc' else '-'
             books = Book.objects.filter(title__icontains=search).order_by(
                 f'{order_prefix}author__name')
-        else:
+        elif sortby == 'price':
             order_prefix = '' if order == 'asc' else '-'
             books = Book.objects.filter(
                 title__icontains=search).order_by(f'{order_prefix}price')
+        elif sortby == 'sales_in_millions':
+            order_prefix = '' if order == 'asc' else '-'
+            books = Book.objects.filter(title__icontains=search).order_by(
+                f'{order_prefix}sales_in_millions')
+
+        form = SearchForm(request.GET)
+        return render(request, 'index.html', {'books': books, 'form': form})
+
     else:
         if sortby == 'title':
             order_prefix = '' if order == 'asc' else '-'

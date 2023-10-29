@@ -12,6 +12,34 @@
         </div>
       </div>
     </div>
+    <div class="details-container">
+      <h1 class="title">{{ book.title }}</h1>
+      <ul>
+        <li class="detail-text">
+          <span class="label">Author:</span>
+          <span class="value">{{ book.author }}</span>
+        </li>
+        <li class="detail-text">
+          <span class="label">Original Language:</span>
+          <span class="value">{{ book.original_language }}</span>
+        </li>
+        <li class="detail-text">
+          <span class="label">First Published:</span>
+          <span class="value">{{ book.first_published }}</span>
+        </li>
+        <li class="detail-text">
+          <span class="label">Sales:</span>
+          <span class="value"> {{ book.sales_in_millions }} 000 000 </span>
+        </li>
+        <li class="detail-text">
+          <span class="label">Genre:</span>
+          <span class="value">
+            {% if book.genre %} {{ book.genre }} {% else %} - {% endif %}
+          </span>
+        </li>
+      </ul>
+      <h2 class="price">{{ book.price }}$</h2>
+    </div>
   </div>
 </section>
 {% endblock %}

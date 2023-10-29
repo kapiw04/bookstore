@@ -10,7 +10,7 @@ class SearchForm(forms.Form):
                              )
     sortby = forms.ChoiceField(label="Sort by",
                                choices=[('title', 'Title'), ('author',
-                                                             'Author'), ('price', 'Price')],
+                                                             'Author'), ('price', 'Price'), ('sales_in_millions', 'Popularity')],
                                required=False,
                                initial='title',
                                widget=forms.Select(
