@@ -1,10 +1,10 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ecommerce Website</title>
+    <title>{% block title %} Ecommerce Website {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
   <body>
@@ -18,6 +18,7 @@
     </header>
 
     <main>
+      {% block content %}
       <section class="hero">
         <div class="header">
           <h1>Welcome to Book<span class="highlight">Store</span></h1>
@@ -29,53 +30,36 @@
       <section class="filters">
         <form action="/" method="POST" class="filters-container">
           {% csrf_token %} {{ form.as_p }}
-          <div class="search">
-            <input type="text" name="search" placeholder="Search..." />
-          </div>
-          <div class="filter-item sort">
-            <select name="sort">
-              <option value="" selected disabled>Sort by</option>
-              <option value="title">Title</option>
-              <option value="author">Author</option>
-              <option value="price">Price</option>
-            </select>
-          </div>
-          <div class="filter-item order">
-            <select name="order">
-              <option value="" selected disabled>Order by</option>
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-          </div>
-          <div class="filter-item submit">
-            <input type="submit" value="Search" />
-          </div>
+          <input type="submit" value="Search" class="filter-item submit" />
         </form>
       </section>
       <section class="products-container">
         <div class="products">
           {% for book in books %}
           <div class="product-item">
-            <div class="container">
-              <div class="image">
-                <h1 class="image-title">{{ book.title }}</h1>
-                <h2 class="image-author">{{ book.author }}</h2>
+            <a href="{% url 'details' book.id %}">
+              <div class="container">
+                <div class="image">
+                  <h1 class="image-title">{{ book.title }}</h1>
+                  <h2 class="image-author">{{ book.author }}</h2>
+                </div>
               </div>
-            </div>
-            <div class="container">
-              <div class="title">
-                <h1>{{ book.title }}</h1>
+              <div class="container">
+                <div class="title">
+                  <h1>{{ book.title }}</h1>
+                </div>
               </div>
-            </div>
-            <div class="container">
-              <div class="price">
-                <h1>{{ book.price }}$</h1>
+              <div class="container">
+                <div class="price">
+                  <h1>{{ book.price }}$</h1>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
           {% endfor %}
         </div>
       </section>
+      {% endblock %}
     </main>
 
     <footer>

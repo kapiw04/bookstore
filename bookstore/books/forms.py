@@ -1,6 +1,26 @@
 from django import forms
 
+
 class SearchForm(forms.Form):
-    search = forms.CharField(label='Search', max_length=100)
-    sortby = forms.ChoiceField(label='Sort by', choices=[('title', 'Title'), ('author', 'Author'), ('price', 'Price')], required=False)
-    order = forms.ChoiceField(label='Order', choices=[('asc', 'Ascending'), ('desc', 'Descending')], required=False)
+    search = forms.CharField(label='Search',
+                             max_length=100,
+                             required=False,
+                             widget=forms.TextInput(
+                                 attrs={'class': 'filter-item search'})
+                             )
+    sortby = forms.ChoiceField(label="Sort by",
+                               choices=[('title', 'Title'), ('author',
+                                                             'Author'), ('price', 'Price')],
+                               required=False,
+                               initial='title',
+                               widget=forms.Select(
+                                   attrs={'class': 'filter-item choice'})
+                               )
+    order = forms.ChoiceField(label='Order',
+                              choices=[(
+                                  'asc', 'Ascending'), ('desc', 'Descending')],
+                              required=False,
+                              initial='asc',
+                              widget=forms.Select(
+                                  attrs={'class': 'filter-item choice'})
+                              )

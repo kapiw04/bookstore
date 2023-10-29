@@ -1,4 +1,4 @@
-$primiry-color: #ac1f1f;
+$primary-color: #ac1f1f;
 $secondary-color: #034913;
 $light-color: #f5f5f5;
 $dark-color: #333;
@@ -12,6 +12,9 @@ body {
   background-color: $light-color;
   color: $dark-color;
   margin-top: 60px;
+}
+a {
+  text-decoration: none;
 }
 
 nav {
@@ -57,7 +60,7 @@ nav {
     padding: 0;
   }
   .highlight {
-    color: $primiry-color;
+    color: $primary-color;
   }
   h2 {
     font-size: 2rem;
@@ -71,6 +74,12 @@ nav {
   justify-content: center;
   align-items: center;
   margin: 0 2rem;
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 700;
+  }
   .filters-container {
     display: flex;
     justify-content: flex-end;
@@ -78,19 +87,41 @@ nav {
     width: 100%;
   }
   .filter-item {
-    margin: 0 1rem;
+    margin-right: 1rem;
     padding: 0;
-    button {
-      background-color: $secondary-color;
-      border: none;
-      border-radius: 5px;
-      color: $light-color;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      &:hover {
-        background-color: darken($secondary-color, 5%);
-      }
+  }
+  .choice {
+    background-color: $primary-color;
+    color: $light-color;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+  .search {
+    border: 1px solid $dark-color;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    margin-right: 1rem;
+    &:focus {
+      outline: none;
+    }
+  }
+  .submit {
+    background-color: $primary-color;
+    color: $light-color;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    &:hover {
+      background-color: darken($primary-color, 5%);
     }
   }
 }
@@ -157,5 +188,11 @@ nav {
       margin: 0;
       padding: 0;
     }
+  }
+}
+
+.details {
+  .product-item {
+    grid-template-columns: 1fr;
   }
 }

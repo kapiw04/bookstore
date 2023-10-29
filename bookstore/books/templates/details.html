@@ -1,0 +1,17 @@
+<!-- prettier-ignore -->
+{% extends "index.html" %} {% block title %} {{ book.title }}
+- Details {% endblock %} 
+{% block content %}
+<section class="products-container details">
+  <div class="products">
+    <div class="product-item">
+      <div class="container">
+        <div class="image">
+          <h1 class="image-title">{{ book.title }}</h1>
+          <h2 class="image-author">{{ book.author }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
