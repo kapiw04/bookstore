@@ -1,0 +1,58 @@
+{% extends 'index.html' %} {% block title %}
+  Checkout
+{% endblock %} {% block content %}
+  <div class="form-container">
+    <form method="POST" action="{% url 'completeOrder' order_id=order.id %}" class="checkout-form">
+        {% csrf_token %}
+        <div class="grid-container">
+        <div class="grid-item">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" placeholder="Name" required />
+        </div>
+        <div class="grid-item">
+          <label for="last_name">Name</label>
+          <input type="text" name="last_name" id="last_name" placeholder="last_name" required />
+        </div>
+        <div class="grid-item">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Email" required />
+        </div>
+        <div class="grid-item">
+          <label for="address">Address</label>
+          <input type="text" name="address" id="address" placeholder="Address" required />
+        </div>
+        <div class="grid-item">
+          <label for="city">City</label>
+          <input type="text" name="city" id="city" placeholder="City" required />
+        </div>
+        <div class="grid-item">
+          <label for="state">State</label>
+          <input type="text" name="state" id="state" placeholder="State" />
+        </div>
+        <div class="grid-item">
+          <label for="zip">Zip</label>
+          <input type="text" name="zip" id="zip" placeholder="Zip" required />
+        </div>
+        <div class="grid-item">
+          <label for="card-name">Card Holder Name</label>
+          <input type="text" name="card-name" id="card-name" placeholder="Card Holder Name" />
+        </div>
+        <div class="grid-item">
+          <label for="card-number">Card Number</label>
+          <input type="text" name="card-number" id="card-number" placeholder="Card Number" />
+        </div>
+        <div class="grid-item">
+          <label for="card-expiry">Card Expiry</label>
+          <input type="text" name="card-expiry" id="card-expiry" placeholder="Card Expiry" />
+        </div>
+        <div class="grid-item">
+          <label for="card-cvc">Card CVC</label>
+          <input type="text" name="card-cvc" id="card-cvc" placeholder="Card CVC" />
+        </div>
+        <div class="grid-item">
+          <button type="submit" class="btn btn-primary">Complete Order</button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

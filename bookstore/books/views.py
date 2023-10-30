@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 import urllib.parse
 from .forms import SearchForm
 from .models import Book
+from cart.models import Cart, CartItem
 
 
 def index(request):
@@ -65,3 +66,12 @@ def index(request):
 def details(request, book_id):
     book = Book.objects.get(pk=book_id)
     return render(request, 'details.html', {'book': book})
+
+
+def addToCart(request, book_id):
+    cart_id = request.session.get('cart_id')
+    book = Book.objects.get(pk=book_id)
+    cart = Cart.objects.get(pk=cart_id)
+    cart.addToCart(request, book)
+
+    return HttpResponseRedirect(reverse('index'))

@@ -14,7 +14,14 @@ body {
   margin-top: 60px;
 }
 a {
+  color: $dark-color;
   text-decoration: none;
+}
+.website-title {
+  text-align: center;
+  color: $dark-color;
+  font-size: 4rem;
+  margin: 0;
 }
 
 nav {
@@ -213,5 +220,77 @@ footer {
     padding: 0;
     font-size: 1rem;
     font-weight: 700;
+  }
+}
+
+.add-to-cart {
+  background-color: $primary-color;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  &:hover {
+    color: $light-color;
+    background-color: darken($primary-color, 5%);
+  }
+}
+
+.cart-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-table {
+  width: 90%;
+  border-collapse: collapse;
+  border: 1px solid $dark-color;
+  th,
+  td {
+    border: 1px solid $dark-color;
+    padding: 0.5rem;
+  }
+  th {
+    background-color: $dark-color;
+    color: $light-color;
+  }
+  td {
+    text-align: center;
+  }
+  a {
+    color: red;
+  }
+}
+
+.total {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 1rem;
+  h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+}
+
+.checkout-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  a {
+    background-color: $primary-color;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    &:hover {
+      color: $light-color;
+      background-color: darken($primary-color, 5%);
+    }
   }
 }

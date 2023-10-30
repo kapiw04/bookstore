@@ -31,10 +31,3 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_sales_in_millions(self):
-        return self.sales_in_millions * 1000000
-
-
-def generate_random_genre():
-    return Genre.objects.get_or_create(name='Random')[0]

@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='book',
             name='genre',
-            field=models.ForeignKey(default=books.models.generate_random_genre, null=True, on_delete=django.db.models.deletion.SET_NULL, to='books.genre'),
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.SET_NULL, to='books.genre'),
         ),
     ]

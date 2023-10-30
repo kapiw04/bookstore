@@ -1,0 +1,38 @@
+{% extends 'index.html' %} {% block title %}
+  Cart
+{% endblock %} 
+{% block content %}
+    <h1 class="website-title">Cart</h1>
+    <div class="cart-list">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.book.title }}</td>
+                        <td>{{ item.get_total }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>
+                            <a href="{% url 'removeFromCart' item.book.id %}">
+                                Remove
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="total">
+        <h3>Total: {{ total }}$</h3>
+    </div>
+    <div class="checkout-btn">
+        <a href="{% url 'checkout' %}">Checkout</a>
+    </div>
+{% endblock %}
