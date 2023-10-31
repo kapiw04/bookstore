@@ -62,7 +62,7 @@ class CartItem(models.Model):
 
 
 class Order(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     cart = models.OneToOneField('Cart', on_delete=models.SET_NULL, null=True)
     cart_details = models.JSONField(null=True, blank=True)

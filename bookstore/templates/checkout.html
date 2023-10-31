@@ -1,59 +1,79 @@
 {% extends 'index.html' %} {% block title %}
   Checkout
-{% endblock %} {% block content %}
-  <div class="form-container">
-    {# prettier-ignore #}
-    <form method="POST" action="{% url 'completeOrder' order_id=order.id %}" class="checkout-form">
-      {% csrf_token %}
-      <div class="grid-container">
-        <div class="grid-item">
-          <label for="name">Name</label>
-          <input type="text" name="name" id="name" placeholder="Name" required />
-        </div>
-        <div class="grid-item">
-          <label for="last_name">Last Name</label>
-          <input type="text" name="last_name" id="last_name" placeholder="last_name" required />
-        </div>
-        <div class="grid-item">
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="Email" required />
-        </div>
-        <div class="grid-item">
-          <label for="address">Address</label>
-          <input type="text" name="address" id="address" placeholder="Address" required />
-        </div>
-        <div class="grid-item">
-          <label for="city">City</label>
-          <input type="text" name="city" id="city" placeholder="City" required />
-        </div>
-        <div class="grid-item">
-          <label for="state">State</label>
-          <input type="text" name="state" id="state" placeholder="State" />
-        </div>
-        <div class="grid-item">
-          <label for="zipcode">Zip</label>
-          <input type="text" name="zipcode" id="zipcode" placeholder="Zipcode" required />
-        </div>
-        {% comment %} <div class="grid-item">
-          <label for="card-name">Card Holder Name</label>
-          <input type="text" name="card-name" id="card-name" placeholder="Card Holder Name" />
-        </div>
-        <div class="grid-item">
-          <label for="card-number">Card Number</label>
-          <input type="text" name="card-number" id="card-number" placeholder="Card Number" />
-        </div>
-        <div class="grid-item">
-          <label for="card-expiry">Card Expiry</label>
-          <input type="text" name="card-expiry" id="card-expiry" placeholder="Card Expiry" />
-        </div>
-        <div class="grid-item">
-          <label for="card-cvc">Card CVC</label>
-          <input type="text" name="card-cvc" id="card-cvc" placeholder="Card CVC" />
-        </div> {% endcomment %}
-        <div class="grid-item">
-          <button type="submit" class="btn btn-primary">Complete Order</button>
-        </div>
+{% endblock %}
+
+{% block hero_head %}
+  Checkout
+{% endblock %}
+
+{% block hero_sub %}
+  Total: ${{ order.total }}
+{% endblock %}
+
+{% block content %}
+  {# prettier-ignore #}
+  <div class="container">
+    <form method="POST" action="{% url 'completeOrder' order_id=order.id %}" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="m-2">
+          <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="name" name="name" placeholder="First name" required>
+              <label for="name">First name</label>
+              <div class="invalid-feedback">Invalid name</div>
+          </div>
+      
+          <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" required>
+              <label for="last_name">Last name</label>
+              <div class="invalid-feedback">Invalid last name</div>
+          </div>
+      
+          <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+              <label for="email">Email</label>
+              <div class="invalid-feedback">Invalid email</div>
+          </div>
+      
+          <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
+              <label for="address">Address</label>
+              <div class="invalid-feedback">Invalid address</div>
+          </div>
+      
+          <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code" required>
+              <label for="zipcode">Zip Code</label>
+              <div class="invalid-feedback">Invalid zipcode</div>
+          </div>
+      
+          <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
+              <label for="city">City</label>
+              <div class="invalid-feedback">Invalid city</div>
+          </div>
+      
+          <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="state" name="state" placeholder="State" required>
+              <label for="state">State</label>
+              <div class="invalid-feedback">Invalid
+                state
+              </div>
+          </div>
       </div>
-    </form>
+      <button type="submit" class="btn btn-primary">Pay</button>     
+      
+      </form>
   </div>
+
+  <script>
+    const form = document.querySelector('form')
+    
+    form.addEventListener('submit', (e) => {
+      if (form.checkValidity() === false) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    })
+  </script>
 {% endblock %}

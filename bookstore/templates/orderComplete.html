@@ -1,15 +1,16 @@
-{% extends "index.html" %}
-
+{% extends 'index.html' %}
 {% block title %}
-Order Complete
-{% endblock title %}
+  Thank you for your order
+{% endblock %}
+
+{% block hero_head %}
+  Order Complete
+{% endblock %}
+
+{% block hero_sub %}
+  Thank you for using our service
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Order Complete</h1>
-            <p>Thank you for your order.</p>
-        </div>
-    </div>
+
 {% endblock %}

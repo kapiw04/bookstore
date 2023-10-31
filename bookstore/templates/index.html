@@ -4,76 +4,125 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} Ecommerce Website {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <title>
+      {% block title %}
+        Ecommerce Website
+      {% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="/">Shop</a></li>
-          <li><a href="{% url 'cart' %}">Cart</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <main>
-      {% block content %}
-      <section class="hero">
-        <div class="header">
-          <h1>Welcome to Book<span class="highlight">Store</span></h1>
-        </div>
-        <div class="sub-header">
-          <h2>Best place to buy books</h2>
-        </div>
-      </section>
-      <section class="filters">
-        <form action="/" method="POST" class="filters-container">
-          {% csrf_token %} {{ form.as_p }}
-          <input type="submit" value="Search" class="filter-item submit" />
-        </form>
-      </section>
-      <section class="products-container">
-        <div class="products">
-          {% for book in books %}
-          <div class="product-item">
-            <a href="{% url 'details' book.id %}">
-              <div class="container">
-                <div class="image">
-                  <h1 class="image-title">{{ book.title }}</h1>
-                  <h2 class="image-author">{{ book.author }}</h2>
+    <div class="d-flex flex-column min-vh-100">
+      <header>
+        <header>
+          <nav class="navbar navbar-expand-lg bg-dark text-light" data-bs-theme="dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{% url 'index' %}">BookStore</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <!-- prettier-ignore -->
+                  <a class="nav-link {% if request.resolver_match.url_name == 'index' or request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Store</a>
+                </div>
+                <div class="navbar-nav">
+                  <!-- prettier-ignore -->
+                  <a class="nav-link {% if request.resolver_match.url_name == 'cart' %}active{% endif %}" href="{% url 'cart' %}">Cart</a>
                 </div>
               </div>
-              <div class="container">
-                <div class="title">
-                  <h1>{{ book.title }}</h1>
-                </div>
-              </div>
-              <div class="container">
-                <div class="price">
-                  <h1>{{ book.price }}$</h1>
-                </div>
-              </div>
-            </a>
+            </div>
+          </nav>
+        </header>
+      </header>
+      <main class="flex-grow-1">
+        <section class="hero">
+          <div class="text-center mt-5">
+            <h1 style="font-size: 5rem">
+              {% block hero_head %}
+                Welcome to Book<span class="text-primary">Store</span>
+              {% endblock %}
+            </h1>
           </div>
-          {% endfor %}
-        </div>
-      </section>
-      {% endblock %}
-    </main>
+          <div class="text-center opacity-75">
+            <h2>
+              {% block hero_sub %}
+                Best place to buy books
+              {% endblock %}
+            </h2>
+          </div>
+        </section>
+        {% block content %}
+          <section class="filters mt-5">
+            <form action="/" method="POST" class="container text-right">
+              {% csrf_token %}
+              <div class="hstack justify-content-end">
+                <div class="p-2">{{ form.search.label_tag }} {{ form.search }}</div>
+                <div class="p-2">{{ form.sortby.label_tag }} {{ form.sortby }}</div>
+                <div class="p-2">{{ form.order.label_tag }} {{ form.order }}</div>
+                <div class="p-2">
+                  <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+              </div>
+            </form>
+          </section>
+          <style>
+            .custom-card-img {
+              height: 200px; /* Adjust this value as needed */
+              width: auto;
+              object-fit: cover;
+            }
+            .card {
+              display: flex;
+              flex-direction: column; /* Makes the card a flex container */
+            }
+            .card-body {
+              flex: 1; /* Allows the body to grow and consume available space */
+            }
+            .price-text {
+              margin: 0; /* Reset margin */
+              font-size: 1.2rem; /* Make the price slightly larger */
+              font-weight: bold; /* Make the price bold */
+            }
+          </style>
+          <section class="books">
+            <div class="container">
+              <div class="row">
+                {% if books %}
+                  {% for book in books %}
+                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                      <div class="card h-100">
+                        <img src="{{ book.cover_image }}" alt="{{ book.title }}" class="card-img-top custom-card-img" />
+                        <div class="card-body">
+                          <h3 class="card-title">{{ book.title }}</h3>
+                        </div>
+                        <div class="card-footer text-center">
+                          <p class="price-text">${{ book.price }}</p>
+                          <a href="{% url 'details' book.id %}" class="btn btn-primary">Details</a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <div class="col-12 mt-5">
+                    <h3 class="text-center">No books found</h3>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+        {% endblock %}
+      </main>
+    </div>
 
-    <footer>
-      <p class="credits">
-        Created by
-        <a href="http://github.com/kapiw04" class="highlight"
-          >Kacper Wojtowicz</a
-        >
-        <a
-          href="https://www.kaggle.com/datasets/drahulsingh/best-selling-books"
-          class="dataset"
-          >Dataset used</a
-        >
-      </p>
+    <footer class="">
+      <div class="text-bg-dark" data-bs-theme="dark">
+        <p>
+          Created by
+          <a href="http://github.com/kapiw04" class="link-info">Kacper Wojtowicz</a>
+        </p>
+        <a href="https://www.kaggle.com/datasets/drahulsingh/best-selling-books" class="link-info">Dataset used</a>
+      </div>
     </footer>
   </body>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </html>
