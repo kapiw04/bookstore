@@ -29,8 +29,8 @@ def removeFromCart(request, book_id):
 def checkout(request):
     cart_id = request.session.get('cart_id')
     cart = Cart.objects.get(pk=cart_id)
-    Order.objects.create(cart=cart)
-    return render(request, 'checkout.html')
+    order = Order.objects.create(cart=cart)
+    return render(request, 'checkout.html', {'order': order})
 
 
 def completeOrder(request, order_id):

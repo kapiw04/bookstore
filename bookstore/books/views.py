@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 import urllib.parse
 from .forms import SearchForm
 from .models import Book
-from cart.models import Cart, CartItem
+from cart.models import Cart
 
 
 def index(request):
@@ -70,6 +70,12 @@ def details(request, book_id):
 
 def addToCart(request, book_id):
     cart_id = request.session.get('cart_id')
+    print(f"cart_id: {cart_id}")
+    if not cart_id:
+        Cart.objects.create()
+        cart_id = Cart.objects.latest('id').id
+        request.session['cart_id'] = cart_id
+
     book = Book.objects.get(pk=book_id)
     cart = Cart.objects.get(pk=cart_id)
     cart.addToCart(request, book)

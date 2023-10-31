@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.serializers import serialize
 
 # Create your models here.
 
@@ -15,7 +16,6 @@ class Cart(models.Model):
         cart_items = CartItem.objects.filter(cart=self)
         total = 0
         for cart_item in cart_items:
-            print(cart_item.get_total())
             total += cart_item.get_total()
 
         return total
@@ -64,7 +64,8 @@ class CartItem(models.Model):
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    cart = models.ForeignKey('Cart', on_delete=models.CASCADE)
+    cart = models.OneToOneField('Cart', on_delete=models.SET_NULL, null=True)
+    cart_details = models.JSONField(null=True, blank=True)
     name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField()
@@ -91,10 +92,26 @@ class Order(models.Model):
         cart_id = request.session.get('cart_id')
         cart = Cart.objects.get(pk=cart_id)
         order = Order.objects.get(cart=cart)
+
+        cart_serialized = serialize('json', [cart])
+        cart_items_serialized = serialize('json', cart.cartitem_set.all())
+
+        order.cart_details = {
+            'cart': cart_serialized,
+            'cart_items': cart_items_serialized
+        }
+
+        form = request.POST
+        order.name = form['name']
+        order.last_name = form['last_name']
+        order.email = form['email']
+        order.address = form['address']
+        order.city = form['city']
+        order.state = form['state']
+        order.zipcode = form['zipcode']
+        order.total = order.total()
         order.complete = True
+
         order.save()
         del request.session['cart_id']
-        cart_items = CartItem.objects.filter(cart=cart)
-        for cart_item in cart_items:
-            cart_item.delete()
         cart.delete()
