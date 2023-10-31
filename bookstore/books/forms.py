@@ -6,7 +6,7 @@ class SearchForm(forms.Form):
                              max_length=100,
                              required=False,
                              widget=forms.TextInput(
-                                 attrs={'class': 'filter-item search'})
+                                 attrs={'class': 'col search'})
                              )
     sortby = forms.ChoiceField(label="Sort by",
                                choices=[('title', 'Title'), ('author',
@@ -14,7 +14,7 @@ class SearchForm(forms.Form):
                                required=False,
                                initial='title',
                                widget=forms.Select(
-                                   attrs={'class': 'filter-item choice'})
+                                   attrs={'class': 'col choice'})
                                )
     order = forms.ChoiceField(label='Order',
                               choices=[(
@@ -22,5 +22,5 @@ class SearchForm(forms.Form):
                               required=False,
                               initial='asc',
                               widget=forms.Select(
-                                  attrs={'class': 'filter-item choice'})
+                                  attrs={'class': 'col choice'})
                               )
